@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Ureteroscopy Mini-Game</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <!-- Main game container -->
+    <div id="game">
+      <!-- Background urinary system image -->
+      <img id="bg" src="assets/urinary_system.png" alt="Urinary System Background">
+
+      <!-- SVG overlay for path, draggable tube and animations -->
+      <svg id="overlay" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid meet">
+
+        <!-- Predefined allowed path (the ureter). Use an SVG path element as the allowed route. -->
+        <defs>
+          <!-- Path updated from user-provided polyline (Option A) -->
+          <path id="ureterPath" d="M 417.4,735.6 L 441.2,747.1 L 469.8,757.6 L 501.3,763.3 L 554.7,764.2 L 588.1,757.6 L 590.9,734.7 L 589,709.9 L 594.8,686.1 L 621.5,673.7 L 650.1,661.3 L 670.1,657.4 L 694.9,650.8 L 719.7,643.1 L 732.1,634.6 L 728.2,620.3 L 728.2,606 L 725.4,587.8 L 722.5,564 L 722.5,545.9 L 722.5,523" />
+        </defs>
+
+        <!-- Render the allowed route as a faint guide line -->
+        <use href="#ureterPath" id="ureterGuide" stroke="#bcd" stroke-width="8" fill="none" stroke-linecap="round"/>
+
+        <!-- The tube is drawn as a polyline that follows the path points from start to current tip -->
+        <g id="tubeGroup">
+          <path id="tubePath" d="" stroke="black" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <!-- Tip of the tube as a draggable circle -->
+          <circle id="tubeTip" cx="0" cy="0" r="10" fill="#0c9" stroke="#003" stroke-width="2" cursor="grab" />
+        </g>
+
+  <!-- Stone image - positioned near the end of the path -->
+  <!-- Stone positioned at the end of the provided path (centered on last point 722.5,523) -->
+  <image id="stone" xlink:href="assets/stone.png" x="712.5" y="513" width="20" height="20"/>
+
+        <!-- Laser beam (initially hidden) -->
+        <line id="laserBeam" x1="0" y1="0" x2="0" y2="0" stroke="#ff2" stroke-width="6" stroke-linecap="round" opacity="0" />
+
+        <!-- Particle group for broken stone fragments -->
+        <g id="particles"></g>
+      </svg>
+
+      <!-- Left-side ureteroscope device image -->
+      <div id="scopePanel">
+        <img id="scopeImg" src="assets/ureteroscope.png" alt="Ureteroscope Device">
+        <button id="activateLaser">Activate Laser</button>
+        <div id="tooltip" class="hidden">You must reach the stone first</div>
+      </div>
+    </div>
+
+    <script src="game.js"></script>
+  </body>
+</html>
