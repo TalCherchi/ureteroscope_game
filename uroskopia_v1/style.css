@@ -1,0 +1,115 @@
+/*
+  style.css
+  Layout and styling for the Ureteroscopy mini-game.
+*/
+
+/* Reset and base */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html,body,#game { height: 100%; }
+body { font-family: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial; background: #f6f9fb; }
+
+#game {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  margin: 14px auto;
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 6px 20px rgba(20,30,40,0.08);
+  overflow: hidden;
+  aspect-ratio: 1200 / 800;
+}
+
+/* Background image fills the left content area; SVG overlay sits on top */
+#bg {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+  opacity: 1;
+  z-index: 1;
+}
+
+/* SVG overlay sits absolutely over the entire game area */
+#overlay {
+  position: absolute;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  pointer-events: all; /* allow user interactions */
+  z-index: 10;
+}
+
+/* Scope panel floats on top-left corner */
+#scopePanel {
+  position: absolute;
+  left: 325px;
+  top: 350px;
+  width: 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  pointer-events: none; /* allow clicks to pass through except for children */
+  z-index: 20;
+}
+#scopePanel img { width: 140px; pointer-events: auto; }
+#scopePanel button {
+  pointer-events: auto;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: none;
+  background: linear-gradient(180deg,#ff6b6b,#ff3b3b);
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+#tooltip {
+  position: absolute;
+  top: 60px;
+  left: 8px;
+  background: rgba(0,0,0,0.85);
+  color: white;
+  padding: 6px 8px;
+  border-radius: 6px;
+  font-size: 13px;
+  pointer-events: none;
+  transform-origin: left top;
+}
+.hidden { display: none; }
+
+/* SVG overlay sits absolutely over the image */
+#overlay {
+  position: absolute;
+  left: 0; top: 0;
+  width: 100%; height: 100%;
+  pointer-events: all; /* allow user interactions */
+}
+
+/* make ureter path guide subtle */
+#ureterGuide { opacity: 0.5; }
+
+/* Stone styles - allow highlighting via class */
+#stone {
+  filter: drop-shadow(0 2px 3px rgba(0,0,0,0.2));
+  transition: transform 200ms ease, opacity 300ms ease;
+  /* Ensure transforms are applied relative to the image box center so scaling doesn't shift position */
+  transform-origin: center center;
+  transform-box: fill-box;
+}
+.stone-highlight { transform: scale(1.12); }
+
+/* Laser styling */
+#laserBeam { filter: drop-shadow(0 0 6px rgba(255,200,50,0.9)); }
+
+/* Particle style */
+.particle { fill: #caa; opacity: 1; }
+
+/* Responsive tweaks */
+@media (max-width: 700px) {
+  #scopePanel { left: 6px; top: 6px; width: 120px; }
+  #scopePanel img { width: 100px; }
+}
